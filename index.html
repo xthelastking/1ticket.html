@@ -51,7 +51,6 @@
             justify-content: center;
             align-items: center;
             margin: 20px 0;
-            position: relative;
         }
         .circle {
             width: 120px;
@@ -62,17 +61,12 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden; /* Prevents anything outside the circle from showing */
+            overflow: hidden; /* Ensures the logo fits within the circle */
         }
-        .logo {
-            width: 60px;
-            height: 60px;
-            position: absolute;
-        }
-        .logo img {
-            width: 100%;
+        .circle img {
+            width: 100%; /* Ensures the logo fills the circle */
             height: 100%;
-            object-fit: cover; /* Ensures the logo doesn't stretch */
+            object-fit: contain; /* Maintains aspect ratio */
         }
         .time {
             font-size: 28px;
@@ -129,9 +123,7 @@
             
             <div class="logo-container">
                 <div class="circle">
-                    <div class="logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/MetroTransit_logo.svg/1024px-MetroTransit_logo.svg.png" alt="GoTo">
-                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/MetroTransit_logo.svg/1024px-MetroTransit_logo.svg.png" alt="Metro Transit Logo">
                 </div>
             </div>
             
@@ -161,9 +153,13 @@
             
             const formattedTime = `${hours}:${minutes}:${seconds} ${amPm}`;
             document.getElementById('clock').textContent = formattedTime;
+        }
 
-            // Calculate expiration time (2.5 hours later)
-            const expirationTime = new Date(now.getTime() + 2.5 * 60 * 60 * 1000);
+        // Expiration time calculated only when the page is loaded or refreshed
+        function setExpirationTime() {
+            const now = new Date();
+            const expirationTime = new Date(now.getTime() + 2.5 * 60 * 60 * 1000); // 2.5 hours later
+
             let expHours = expirationTime.getHours();
             let expMinutes = expirationTime.getMinutes();
             const expAmPm = expHours >= 12 ? 'PM' : 'AM';
@@ -179,8 +175,8 @@
             document.getElementById('expires').textContent = `Expires: ${formattedExpDate}, ${formattedExpTime}`;
         }
 
-        setInterval(updateClock, 1000);
-        updateClock(); // Initial call to set immediately
+        setInterval(updateClock, 1000);  // Update the clock every second
+        setExpirationTime();  // Set the expiration time once on load or refresh
     </script>
 </body>
 </html>
