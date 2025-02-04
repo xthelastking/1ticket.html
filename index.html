@@ -26,6 +26,7 @@
             width: 100%;
             max-width: 400px;
             padding: 15px;
+            position: relative;
         }
         .ticket {
             background: white;
@@ -107,6 +108,22 @@
             font-weight: bold; /* Make the expiration date bold */
         }
 
+        /* Style for the exit "X" button without circle/square */
+        .exit-button {
+            position: absolute;
+            top: -5px;  /* Move the "X" 10px higher by reducing the top value */
+            right: 5px;  /* Reduced right margin */
+            font-size: 24px;  /* Smaller "X" */
+            font-weight: bold;
+            color: #004F9F; /* Blue color */
+            cursor: pointer;
+            z-index: 10; /* Ensure the button is on top of other elements */
+        }
+
+        .exit-button:hover {
+            color: #003A7D; /* Darker blue on hover */
+        }
+
         /* Responsive Design for smaller screens */
         @media (max-width: 414px) {
             .ticket-container {
@@ -138,8 +155,11 @@
 </head>
 <body>
     <div class="ticket-container">
+        <!-- Exit Button without circle/square -->
+        <div class="exit-button">X</div>
+
         <div class="ticket">
-            <div class="header">Metro Transit</div> <!-- "Metro Transit" moved closer -->
+            <div class="header">Metro Transit</div>
             <div class="subtext">Show operator your ticket</div>
             
             <div class="logo-container">
