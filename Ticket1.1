@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test Page</title>
-</head>
-<body>
-    <h1>Hello, this is a test!</h1>
-</body>
-</html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Transit Ticket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
         body {
@@ -18,16 +18,21 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
         .ticket-container {
             width: 100%;
             max-width: 400px;
+            padding: 15px;
         }
         .ticket {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .header {
             font-size: 18px;
@@ -68,7 +73,7 @@
             height: 100%;
         }
         .time {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             margin: 15px 0;
         }
@@ -84,6 +89,33 @@
             font-weight: bold;
             color: #333;
             margin-top: 5px;
+        }
+
+        /* Responsive Design for smaller screens like iPhone XR */
+        @media (max-width: 414px) {
+            .ticket-container {
+                width: 90%; /* Ensure it uses most of the available screen space */
+            }
+
+            .header {
+                font-size: 16px;
+            }
+
+            .subtext {
+                font-size: 12px;
+            }
+
+            .time {
+                font-size: 24px;
+            }
+
+            .details p {
+                font-size: 14px;
+            }
+
+            .expires {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
