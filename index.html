@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metro Transit Ticket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"> <!-- Slimmer font -->
     <style>
         * {
             margin: 0;
@@ -19,6 +20,7 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            color: #333333;
         }
         .ticket-container {
             width: 100%;
@@ -29,7 +31,6 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -38,14 +39,17 @@
             font-size: 18px;
             font-weight: bold;
             text-align: left;
-            margin-bottom: 5px;
+            margin-top: 10px;
+            margin-bottom: 5px; /* 5px margin between the header and subtext */
         }
         .subtext {
             font-size: 14px;
             color: #555;
             text-align: left;
+            margin-top: 5px; /* 5px margin-top to create space between the two lines */
             margin-bottom: 15px;
         }
+
         .logo-container {
             display: flex;
             justify-content: center;
@@ -53,63 +57,80 @@
             margin: 20px 0;
         }
         .circle {
-            width: 120px;
-            height: 120px;
+            width: 160px;  /* Increased circle size */
+            height: 160px; /* Increased circle size */
             border-radius: 50%;
-            border: 12px solid #004F9F;
+            border: 36px solid #004F9F; /* 15% thicker circle */
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden; /* Ensures the logo fits within the circle */
+            overflow: hidden;
         }
         .circle img {
-            width: 100%; /* Ensures the logo fills the circle */
-            height: 100%;
-            object-fit: contain; /* Maintains aspect ratio */
+            width: 35%;
+            height: 35%;
+            object-fit: contain;
         }
         .time {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 15px 0;
+            font-family: 'Roboto', sans-serif; /* Changed to a slimmer font */
+            font-size: 60px; /* Increased font size */
+            font-weight: bold; /* Now making the time bold */
+            margin: 30px 0 10px; /* Increased top margin to move the time down */
         }
-        .details {
-            font-size: 16px;
-            background: #f8f8f8;
-            padding: 15px;
+        
+        /* Wrap all text under the circle into a single block */
+        .text-block {
+            background-color: white; /* White background for the text block */
+            padding: 20px;
             border-radius: 8px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .expires {
-            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow around the text */
+            text-align: left;
             color: #333;
-            margin-top: 5px;
         }
 
-        /* Responsive Design for smaller screens like iPhone XR */
+        .fare-text {
+            font-size: 20px;
+            font-weight: normal;  /* Removed bold styling */
+            margin-bottom: 10px;
+        }
+
+        .location-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .expires {
+            font-size: 16px;
+            margin-top: 20px; /* Move expiration time down a line */
+            font-weight: bold; /* Make the expiration date bold */
+        }
+
+        /* Responsive Design for smaller screens */
         @media (max-width: 414px) {
             .ticket-container {
-                width: 90%; /* Ensure it uses most of the available screen space */
+                width: 90%;
             }
-
             .header {
                 font-size: 16px;
             }
-
             .subtext {
                 font-size: 12px;
             }
-
             .time {
-                font-size: 24px;
+                font-size: 30px; /* Adjusted font size for smaller screens */
             }
-
             .details p {
                 font-size: 14px;
             }
-
             .expires {
+                font-size: 14px;
+            }
+            .fare-text {
+                font-size: 18px;
+            }
+            .location-text {
                 font-size: 14px;
             }
         }
@@ -118,21 +139,22 @@
 <body>
     <div class="ticket-container">
         <div class="ticket">
-            <div class="header">Metro Transit</div>
+            <div class="header">Metro Transit</div> <!-- "Metro Transit" moved closer -->
             <div class="subtext">Show operator your ticket</div>
             
             <div class="logo-container">
                 <div class="circle">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/MetroTransit_logo.svg/1024px-MetroTransit_logo.svg.png" alt="Metro Transit Logo">
+                    <img src="https://i.imgur.com/Sv2XEEm_d.webp?maxwidth=760&fidelity=grand" alt="Metro Transit Logo">
                 </div>
             </div>
             
             <div class="time" id="clock">Loading...</div>
             
-            <div class="details">
-                <p>Adult / Rush Hour Fare</p>
-                <p>Minneapolis/St Paul Metro Area</p>
-                <p class="expires" id="expires">Expires: Loading...</p>
+            <!-- Group all text under one container -->
+            <div class="text-block">
+                <div class="fare-text">Adult / Rush Hour Fare</div>
+                <div class="location-text">Minneapolis/St Paul Metro Area</div>
+                <div class="expires" id="expires">Expires: Loading...</div>
             </div>
         </div>
     </div>
