@@ -20,13 +20,13 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            color: #333333;
+            color: #4A4A4A;
+            position: relative;
         }
         .ticket-container {
             width: 100%;
             max-width: 400px;
             padding: 15px;
-            position: relative;
         }
         .ticket {
             background: white;
@@ -37,20 +37,19 @@
             justify-content: space-between;
         }
         .header {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             text-align: left;
             margin-top: 10px;
-            margin-bottom: 5px; /* 5px margin between the header and subtext */
+            margin-bottom: 5px;
+            color: #000000; /* Changed Metro Transit text color to black */
         }
         .subtext {
             font-size: 14px;
             color: #555;
             text-align: left;
-            margin-top: 5px; /* 5px margin-top to create space between the two lines */
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
-
         .logo-container {
             display: flex;
             justify-content: center;
@@ -58,10 +57,10 @@
             margin: 20px 0;
         }
         .circle {
-            width: 160px;  /* Increased circle size */
-            height: 160px; /* Increased circle size */
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            border: 36px solid #004F9F; /* 15% thicker circle */
+            border: 36px solid #004F9F; /* Thicker circle */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -74,26 +73,25 @@
             object-fit: contain;
         }
         .time {
-            font-family: 'Roboto', sans-serif; /* Changed to a slimmer font */
-            font-size: 60px; /* Increased font size */
-            font-weight: bold; /* Now making the time bold */
-            margin: 30px 0 10px; /* Increased top margin to move the time down */
+            font-family: 'Roboto', sans-serif;
+            font-size: 60px;
+            font-weight: bold;
+            margin: 30px 0 10px;
         }
-        
-        /* Wrap all text under the circle into a single block */
+
         .text-block {
-            background-color: white; /* White background for the text block */
+            background-color: white;
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
-            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow around the text */
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
             text-align: left;
             color: #333;
         }
 
         .fare-text {
             font-size: 20px;
-            font-weight: normal;  /* Removed bold styling */
+            font-weight: normal;
             margin-bottom: 10px;
         }
 
@@ -104,27 +102,23 @@
 
         .expires {
             font-size: 16px;
-            margin-top: 20px; /* Move expiration time down a line */
-            font-weight: bold; /* Make the expiration date bold */
+            margin-top: 20px;
+            font-weight: bold;
         }
 
-        /* Style for the exit "X" button without circle/square */
-        .exit-button {
+        /* Styling for the close X button */
+        .close-button {
             position: absolute;
-            top: -5px;  /* Move the "X" 10px higher by reducing the top value */
-            right: 5px;  /* Reduced right margin */
-            font-size: 24px;  /* Smaller "X" */
-            font-weight: bold;
+            top: 10px;
+            right: 10px;
+            font-size: 32px; /* Smaller, thinner size */
+            font-weight: normal; /* Thinner font */
             color: #004F9F; /* Blue color */
             cursor: pointer;
-            z-index: 10; /* Ensure the button is on top of other elements */
+            user-select: none; /* Prevent text selection */
+            line-height: 1; /* Ensure no extra space around the X */
         }
 
-        .exit-button:hover {
-            color: #003A7D; /* Darker blue on hover */
-        }
-
-        /* Responsive Design for smaller screens */
         @media (max-width: 414px) {
             .ticket-container {
                 width: 90%;
@@ -136,10 +130,7 @@
                 font-size: 12px;
             }
             .time {
-                font-size: 30px; /* Adjusted font size for smaller screens */
-            }
-            .details p {
-                font-size: 14px;
+                font-size: 30px;
             }
             .expires {
                 font-size: 14px;
@@ -154,12 +145,11 @@
     </style>
 </head>
 <body>
+    <div class="close-button" onclick="closeTicket()">X</div> <!-- Close button X -->
+    
     <div class="ticket-container">
-        <!-- Exit Button without circle/square -->
-        <div class="exit-button">X</div>
-
         <div class="ticket">
-            <div class="header">Metro Transit</div>
+            <div class="header">Metro Transit</div> 
             <div class="subtext">Show operator your ticket</div>
             
             <div class="logo-container">
@@ -170,7 +160,6 @@
             
             <div class="time" id="clock">Loading...</div>
             
-            <!-- Group all text under one container -->
             <div class="text-block">
                 <div class="fare-text">Adult / Rush Hour Fare</div>
                 <div class="location-text">Minneapolis/St Paul Metro Area</div>
@@ -183,13 +172,12 @@
         function updateClock() {
             const now = new Date();
 
-            // Format current time
             let hours = now.getHours();
             let minutes = now.getMinutes();
             let seconds = now.getSeconds();
             const amPm = hours >= 12 ? 'PM' : 'AM';
 
-            hours = hours % 12 || 12; // Convert to 12-hour format
+            hours = hours % 12 || 12;
             minutes = minutes < 10 ? '0' + minutes : minutes;
             seconds = seconds < 10 ? '0' + seconds : seconds;
             
@@ -197,7 +185,6 @@
             document.getElementById('clock').textContent = formattedTime;
         }
 
-        // Expiration time calculated only when the page is loaded or refreshed
         function setExpirationTime() {
             const now = new Date();
             const expirationTime = new Date(now.getTime() + 2.5 * 60 * 60 * 1000); // 2.5 hours later
@@ -217,8 +204,13 @@
             document.getElementById('expires').textContent = `Expires: ${formattedExpDate}, ${formattedExpTime}`;
         }
 
-        setInterval(updateClock, 1000);  // Update the clock every second
-        setExpirationTime();  // Set the expiration time once on load or refresh
+        function closeTicket() {
+            // Add functionality to close or hide the ticket
+            alert("Ticket Closed!"); // Placeholder for closing functionality
+        }
+
+        setInterval(updateClock, 1000);
+        setExpirationTime();
     </script>
 </body>
 </html>
